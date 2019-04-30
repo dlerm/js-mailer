@@ -1,0 +1,8 @@
+{
+  "name": "JS Mailer",
+  "description": "A mailer app bilt with Nodejs and Koa",
+  "repository": "https://github.com/dlerm/js-mailer",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "koa", "heroku"],
+  "image": "heroku/nodejs"
+}
