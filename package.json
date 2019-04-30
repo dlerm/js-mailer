@@ -1,7 +1,7 @@
 {
   "name": "js-mailer",
   "version": "1.0.0",
-  "description": "A mailer app bilt with Nodejs and Koa",
+  "description": "A mailer app built with Node and Koa",
   "engines": {
     "node": "11.x"
   },
