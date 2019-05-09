@@ -13,5 +13,4 @@ docker-compose.yml
 
 # etc
 public/
-views/
 yarn-error.log
