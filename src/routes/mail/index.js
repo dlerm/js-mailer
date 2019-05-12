@@ -5,6 +5,6 @@ const router = new Router()
 
 router.post('/', bodyparser(), _post);
 
-router.get('/', (ctx, next) => ctx.body = `GET ${ctx.request.url}`);
+router.get('/', (ctx, next) => ctx.body = `GET ${ ctx.request.url }`);
 
 module.exports = router.routes();

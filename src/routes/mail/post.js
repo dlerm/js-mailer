@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import { config as dotenv } from 'dotenv';
+import controller from './controller';
 
 module.exports = async (ctx, next) => {
   // console.log('BODY:', ctx.request.body);
@@ -17,47 +17,32 @@ module.exports = async (ctx, next) => {
   //     pass: testAccount.pass // generated ethereal password
   //   }
   // });
-
-  dotenv();
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-  let transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT,
-    secure: true,
-    auth: {
-      user: SMTP_USER, 
-      pass: SMTP_PASS
-    }
-  });
+  const config = controller.generateNodemailerConfig();
+  
+  const transporter = nodemailer.createTransport(config);
 
   const { 
-    from = [],
-    to = [],
-    cc = [],
-    bcc = [],
+    from = false,
+    to = false,
+    cc = false,
+    bcc = false,
     subject = 'Subject',
-    fields
+    fields = {},
   } = ctx.request.body;
 
   const email = {
-    from: from.join(', '),
-    to: to.join(', '),
-    cc: cc.join(', '),
-    bcc: bdd.join(', '),
-    subject
+    from,
+    to,
+    cc,
+    bcc,
+    subject,
+    fields,
   };
 
-  const html = `<b>Hello world?</b>`;
-  const text = `Hello world?`;
+  email.html = controller.generateMailLayout(email);
+  email.text = email.html.replace(/<(?:.|\n)*?>/gm, '');
 
-  email.html = html;
-  email.text = text;
-
-  let info = await transporter.sendMail(email);
-
-  // console.log(`Message sent: ${info.messageId}`);
-  // const preview = nodemailer.getTestMessageUrl(info);
-  // console.log(`Preview URL: ${preview}`);
+  const info = await transporter.sendMail(email);
   
   return ctx.body = { 
     status: {

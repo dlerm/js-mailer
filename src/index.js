@@ -10,4 +10,4 @@ router.use(routes);
 
 app
   .use(router.routes())
-  .listen(5000, console.log(`Server running in https://localhost:${(process.env.PORT || 5000)}`));
+  .listen(5000, console.log(`Server running in https://localhost:${ process.env.PORT || 5000 }`));
